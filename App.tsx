@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { Session, Subscription } from '@supabase/supabase-js';
+import { Session } from '@supabase/supabase-js';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -18,29 +18,28 @@ import { AdminContext } from './contexts/AdminContext';
 import { Project, Writing, WorkExperience, Education, Certificate, Message, AdminSettings } from './types';
 import { getProjects, getWritings, getWorkExperience, getEducation, getCertificates, getMessages, getSettings, onAuthChange } from './supabaseClient';
 
-// FIX: Define initialSettings directly in the file to resolve the module not found error.
 const initialSettings: AdminSettings = {
   commentsEnabled: true,
   ratingsEnabled: true,
   heroSection: {
-    title: "Salehin's Territory",
-    subtitle: "A Journey Through Code, Creativity, and Everything in Between",
+    title: "Welcome to Your Territory",
+    subtitle: "Your portfolio is ready to be set up in the Admin Panel.",
   },
   footerContent: {
-    copyright: `© ${new Date().getFullYear()} S.M. Samius Salehin. All rights reserved.`,
+    copyright: `© ${new Date().getFullYear()}`,
   },
   aboutMe: {
-    name: "S.M. Samius Salehin",
-    photoUrl: "https://i.imgur.com/example.png", // Placeholder
-    bio: "I am a passionate software engineer and a creative writer with a knack for building beautiful and functional applications. This space is my canvas, where I showcase my projects, share my stories, and document my professional journey. Welcome!",
-    professionalSummary: "A highly motivated and detail-oriented software engineer with experience in full-stack web development. Proficient in modern technologies like React, TypeScript, and Node.js. Passionate about creating efficient, scalable, and user-friendly solutions.",
+    name: "Your Name",
+    photoUrl: "",
+    bio: "Update your bio in the admin panel.",
+    professionalSummary: "Update your professional summary in the admin panel.",
   },
   contactDetails: {
-    email: "contact@example.com",
-    phone: "123-456-7890",
-    facebook: "https://facebook.com/example",
-    linkedin: "https://linkedin.com/in/example",
-    location: "Dhaka, Bangladesh",
+    email: "",
+    phone: "",
+    facebook: "",
+    linkedin: "",
+    location: "",
   }
 };
 
@@ -86,8 +85,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     fetchAllData();
-    // FIX: The onAuthChange function returns an object with a 'subscription' property, not a 'data' property.
-    // The destructuring has been corrected to { subscription } instead of { data: { subscription } }.
     const { subscription } = onAuthChange((session: Session | null) => {
       setIsAdmin(!!session);
     });
